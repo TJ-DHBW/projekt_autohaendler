@@ -10,5 +10,6 @@ public class Customer {
     public Customer(String fistName, String lastName) {
         this.fistName = fistName;
         this.lastName = lastName;
+        wallet = new Wallet();
     }
 }
