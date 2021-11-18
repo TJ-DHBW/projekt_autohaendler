@@ -11,11 +11,11 @@ public class LoggerBTC implements ICryptoLogger{
     private final Logger logger;
     private final FileHandler fh;
 
-    public LoggerBTC() {
+    public LoggerBTC(String filePath) {
         FileHandler fh1;
         this.logger = Logger.getLogger("BitcoinLogger");
         try {
-            fh1 = new FileHandler("Logfile.txt");
+            fh1 = new FileHandler(filePath);
         } catch (IOException e) {
             System.out.println("Was not able to access the logging file. No logs will be written to disk!");
             fh1 = null;
