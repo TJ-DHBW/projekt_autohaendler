@@ -1,6 +1,7 @@
 package actors;
 
 import btc.Block;
+import btc.Transaction;
 import config.Configuration;
 
 import java.util.ArrayList;
@@ -26,5 +27,10 @@ public class Miner {
         }
 
         blockchain.add(newBlock);
+    }
+
+    public boolean verifyTransaction(Transaction transaction){
+        //todo implement
+        return false;
     }
 }

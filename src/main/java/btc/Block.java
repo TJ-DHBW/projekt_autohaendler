@@ -1,5 +1,6 @@
 package btc;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Block {
@@ -9,6 +10,7 @@ public class Block {
     private final int difficulty;
     private String hash;
     private int nonce;
+    private ArrayList<Transaction> transactions;
 
     public Block(String guid, String previousHash, int difficulty) {
         this.guid = guid;
@@ -17,6 +19,7 @@ public class Block {
         this.nonce = 0;
         this.hash = this.sha256();
         this.difficulty = difficulty;
+        this.transactions = new ArrayList<>();
     }
 
     public String sha256() {

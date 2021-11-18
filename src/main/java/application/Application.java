@@ -1,7 +1,8 @@
 package application;
 
-import actors.Customer;
+import actors.Person;
 import actors.Miner;
+import actors.Tesla;
 import btc.Block;
 import btc.BtcNetwork;
 
@@ -20,8 +21,13 @@ public class Application {
         Miner sam = new Miner(blockChain, "Sam");
         btcNetwork.registerMiner(sam);
 
-        Customer ho = new Customer("Maria", "Ho");
-        Customer negreanu = new Customer( "Daniel", "Negreanu");
-        Customer ivey = new Customer("Phil", "Ivey");
+        Person carDealer = new Person("Jimmy", "CarDealer");
+        for(int i = 0; i<5; i++) {
+            carDealer.getTeslasInPossession().add(new Tesla("S"));
+        }
+
+        Person ho = new Person("Maria", "Ho");
+        Person negreanu = new Person( "Daniel", "Negreanu");
+        Person ivey = new Person("Phil", "Ivey");
     }
 }
