@@ -46,9 +46,8 @@ public class LoggerBTC implements ICryptoLogger{
         // TODO Implement logging
     }
 
-    public void onBlockTransmission(String event, Object argument) {
+    public void onBlockTransmission(String event, Block transmittingBlock) {
         // TODO Check if this is accurate.
-        Block transmittingBlock = (Block) argument;
         logger.info("Block is being transmitted: " + transmittingBlock);
     }
 
@@ -56,8 +55,7 @@ public class LoggerBTC implements ICryptoLogger{
         // TODO Implement logging
     }
 
-    public void onBlockAdded(String event, Object argument) {
-        Block addedBlock = (Block) argument;
+    public void onBlockAdded(String event, Block addedBlock) {
         logger.info("Block has been added to the chain: " + addedBlock);
     }
 }
