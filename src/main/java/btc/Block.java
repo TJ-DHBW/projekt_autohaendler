@@ -22,6 +22,8 @@ public class Block {
         this.transactions = new ArrayList<>();
     }
 
+
+
     public String sha256() {
         return Hashing.sha256(previousHash + timeStamp + nonce + guid);
     }

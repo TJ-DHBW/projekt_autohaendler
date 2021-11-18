@@ -11,15 +11,14 @@ import java.util.ArrayList;
 public class Application {
 
     public static void main(String[] args) {
-        ArrayList<Block> blockChain = new ArrayList<>();
         BtcNetwork btcNetwork = new BtcNetwork();
 
-        Miner bob = new Miner(blockChain, "Bob");
-        btcNetwork.registerMiner(bob);
-        Miner eve = new Miner(blockChain, "Eve");
-        btcNetwork.registerMiner(eve);
-        Miner sam = new Miner(blockChain, "Sam");
-        btcNetwork.registerMiner(sam);
+        Miner bob = new Miner("Bob");
+        bob.setActiveNetwork(btcNetwork);
+        Miner eve = new Miner("Eve");
+        eve.setActiveNetwork(btcNetwork);
+        Miner sam = new Miner("Sam");
+        sam.setActiveNetwork(btcNetwork);
 
         Person carDealer = new Person("Jimmy", "CarDealer");
         for(int i = 0; i<5; i++) {
