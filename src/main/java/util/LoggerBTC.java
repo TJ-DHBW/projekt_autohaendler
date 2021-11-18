@@ -1,6 +1,8 @@
 package util;
 
+import actors.Miner;
 import btc.Block;
+import btc.Transaction;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -26,36 +28,41 @@ public class LoggerBTC implements ICryptoLogger{
     }
     // TODO Use the logger
 
-    public void onTransaction(String event, Object argument) {
+    public void onTransaction(Transaction createdTransaction) {
+        // TODO Check if this is accurate
+        logger.info("A new Transaction has been created: " + createdTransaction);
+    }
+
+    public void onBroadcast(Transaction broadcastTransaction) {
+        // TODO Check if this is accurate
+        logger.info("Transaction is being transmitted to miners for verification: " + broadcastTransaction);
+    }
+
+    public void onTransactionVerification(Transaction verifiedTransaction) {
+        // TODO Check if this is accurate
+        logger.info("Transaction has been verified: " + verifiedTransaction);
+    }
+
+    public void onStructuring(Object argument) {
         // TODO Implement logging
     }
 
-    public void onBroadcast(String event, Object argument) {
-        // TODO Implement logging
+    public void onProofOfWork(Miner chosenMiner, Block createdBlock) {
+        // TODO Check if this is accurate
+        logger.info("The miner " + chosenMiner + " has solved the complex mathematical problem for block: " + createdBlock);
     }
 
-    public void onBroadcastVerification(String event, Object argument) {
-        // TODO Implement logging
+    public void onBlockTransmission(Block transmittingBlock) {
+        // TODO Check if this is accurate
+        logger.info("Block is being transmitted to miners for verification: " + transmittingBlock);
     }
 
-    public void onStructuring(String event, Object argument) {
-        // TODO Implement logging
+    public void onProofOfWorkVerification(Block verifiedBlock) {
+        // TODO Check if this is accurate
+        logger.info("Block has been verified: " + verifiedBlock);
     }
 
-    public void onProofOfWork(String event, Object argument) {
-        // TODO Implement logging
-    }
-
-    public void onBlockTransmission(String event, Block transmittingBlock) {
-        // TODO Check if this is accurate.
-        logger.info("Block is being transmitted: " + transmittingBlock);
-    }
-
-    public void onTransmissionVerification(String event, Object argument) {
-        // TODO Implement logging
-    }
-
-    public void onBlockAdded(String event, Block addedBlock) {
+    public void onBlockAdded(Block addedBlock) {
         logger.info("Block has been added to the chain: " + addedBlock);
     }
 }

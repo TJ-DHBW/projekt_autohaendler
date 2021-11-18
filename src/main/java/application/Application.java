@@ -3,15 +3,19 @@ package application;
 import actors.Person;
 import actors.Miner;
 import actors.Tesla;
-import btc.Block;
 import btc.BtcNetwork;
+import util.ICryptoLogger;
+import util.LoggerBTC;
 
-import java.util.ArrayList;
 
 public class Application {
+    // TODO decide logFilePath
+    public static final String logFilePath = "";
 
     public static void main(String[] args) {
         BtcNetwork btcNetwork = new BtcNetwork();
+        ICryptoLogger logger = new LoggerBTC(logFilePath);
+        btcNetwork.registerLogger(logger);
 
         Miner bob = new Miner("Bob");
         bob.setActiveNetwork(btcNetwork);

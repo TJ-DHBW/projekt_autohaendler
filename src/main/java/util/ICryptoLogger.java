@@ -1,14 +1,16 @@
 package util;
 
+import actors.Miner;
 import btc.Block;
+import btc.Transaction;
 
 public interface ICryptoLogger {
-    void onTransaction(String event, Object argument);
-    void onBroadcast(String event, Object argument);
-    void onBroadcastVerification(String event, Object argument);
-    void onStructuring(String event, Object argument);
-    void onProofOfWork(String event, Object argument);
-    void onBlockTransmission(String event, Block transmittingBlock);
-    void onTransmissionVerification(String event, Object argument);
-    void onBlockAdded(String event, Block addedBlock);
+    void onTransaction(Transaction createdTransaction);
+    void onBroadcast(Transaction broadcastTransaction);
+    void onTransactionVerification(Transaction verifiedTransaction);
+    void onStructuring(Object argument);
+    void onProofOfWork(Miner chosenMiner, Block createdBlock);
+    void onBlockTransmission(Block transmittingBlock);
+    void onProofOfWorkVerification(Block verifiedBlock);
+    void onBlockAdded(Block addedBlock);
 }
