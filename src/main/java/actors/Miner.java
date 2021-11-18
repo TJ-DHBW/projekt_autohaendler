@@ -33,4 +33,11 @@ public class Miner {
         //todo implement
         return false;
     }
+
+    public boolean verifyProofOfWork(Block block){
+        //todo implement
+        return false;
+    }
+
+
 }
