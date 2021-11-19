@@ -15,9 +15,8 @@ public class Miner {
         this.name = name;
     }
 
-    public void mineValidBlock(Block blockToMine) {
+    public void mineValidBlock(Block blockToMine, int difficulty) {
         // TODO Miner needs to add its own reward here
-        int difficulty = blockToMine.getDifficulty();
         String target = new String(new char[difficulty]).replace('\0', '0');
 
         while (!blockToMine.getHash().substring(0, difficulty).equals(target)) {
