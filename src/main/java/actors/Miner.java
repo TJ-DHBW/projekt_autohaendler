@@ -26,12 +26,17 @@ public class Miner {
     }
 
     public boolean verifyTransaction(Transaction transaction){
-        //todo implement
-        return false;
+        //todo Check if correct
+        if (transaction.getId() == null){
+            return transaction.processTransaction();
+        }else{
+            return !transaction.verifySignature();
+        }
     }
 
     public boolean verifyProofOfWork(Block blockToVerify){
         //TODO Check if correct
+        //TODO Do we have to check the transactions again?
         int difficulty = Configuration.instance.difficulty;
         String target = new String(new char[difficulty]).replace('\0', '0');
         return blockToVerify.getHash().substring(0, difficulty).equals(target);

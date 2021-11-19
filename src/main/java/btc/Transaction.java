@@ -3,7 +3,6 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
 
-import actors.Person;
 import config.Configuration;
 import util.StringUtility;
 
@@ -13,7 +12,7 @@ public class Transaction {
     private final float value;
     private final ArrayList<TransactionOutput> outputs = new ArrayList<>();
     private final ArrayList<TransactionInput> inputs;
-    private String id;
+    private String id = null;
     private byte[] signature;
 
     public Transaction(PublicKey from, PublicKey to, float value, ArrayList<TransactionInput> inputs) {
@@ -34,6 +33,10 @@ public class Transaction {
         signature = StringUtility.applyECDSASig(privateKey, data);
     }
 
+    /**
+     * Verifies a signature
+     * @return false if verified.
+     */
     public boolean verifySignature() {
         String data = StringUtility.getStringFromKey(sender) + StringUtility.getStringFromKey(recipient) + value;
         return !StringUtility.verifyECDSASig(sender, data, signature);

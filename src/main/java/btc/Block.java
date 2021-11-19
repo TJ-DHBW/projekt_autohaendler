@@ -8,7 +8,7 @@ public class Block {
     private final long timeStamp;
     private String hash;
     private int nonce;
-    private ArrayList<Transaction> transactions;
+    private final ArrayList<Transaction> transactions;
 
     public Block(String previousHash) {
         this.previousHash = previousHash;
@@ -17,8 +17,7 @@ public class Block {
         this.hash = this.sha256();
         this.transactions = new ArrayList<>();
     }
-
-
+    //TODO This class might have to be remade. sha should probably hash over more stuff etc.
 
     public String sha256() {
         return Hashing.sha256(previousHash + timeStamp + nonce);
@@ -38,5 +37,10 @@ public class Block {
 
     public String getPreviousHash() {
         return previousHash;
+    }
+
+    public void addTransaction(Transaction transactionToAdd){
+        if (transactions.contains(transactionToAdd)) return;
+        transactions.add(transactionToAdd);
     }
 }
