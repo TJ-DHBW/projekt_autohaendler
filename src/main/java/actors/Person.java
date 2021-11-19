@@ -20,4 +20,12 @@ public class Person {
     public ArrayList<Tesla> getTeslasInPossession() {
         return teslasInPossession;
     }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
 }
