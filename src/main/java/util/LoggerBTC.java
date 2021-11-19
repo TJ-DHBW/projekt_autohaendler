@@ -5,9 +5,11 @@ import btc.Block;
 import btc.Transaction;
 
 import java.io.IOException;
+import java.util.Formatter;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class LoggerBTC implements ICryptoLogger{
     private final Logger logger;
@@ -23,6 +25,7 @@ public class LoggerBTC implements ICryptoLogger{
             fh1 = null;
         }
         this.fh = fh1;
+        fh.setFormatter(new SimpleFormatter());
         logger.addHandler(this.fh);
         logger.setLevel(Level.ALL);
     }
