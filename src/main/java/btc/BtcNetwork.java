@@ -35,12 +35,25 @@ public class BtcNetwork {
     public boolean broadcastTransaction(Transaction transaction){
         loggers.forEach(logger -> logger.onBroadcast(transaction));
         if (!verifyTransaction(transaction)) return false;
-        handleNewTransaction(transaction);
-        return true;
+        return handleNewTransaction(transaction);
     }
 
-    private void handleNewTransaction(Transaction newTransaction) {
-        // TODO Implement logic for a new valid Transaction.
+    private boolean handleNewTransaction(Transaction newTransaction) {
+        // TODO Check if this is correct
+        Block newBlock = new Block(validBlockChain.get(validBlockChain.size()-1).getHash(), Configuration.instance.difficulty + validBlockChain.size());
+        Miner chosenMiner = getRandomMiner();
+        if (chosenMiner == null){
+            System.out.println("No miners registered on the Network. Transaction was not added.");
+            return false;
+        }
+
+        loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
+        chosenMiner.mineValidBlock(newBlock);
+        loggers.forEach(logger -> logger.onBlockTransmission(newBlock));
+        if (!verifyProofOfWork(newBlock)) return false;
+        validBlockChain.add(newBlock);
+        loggers.forEach(logger -> logger.onBlockAdded(newBlock));
+        return true;
     }
 
     private boolean verifyProofOfWork(Block blockToVerify){

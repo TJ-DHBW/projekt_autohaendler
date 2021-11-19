@@ -47,9 +47,9 @@ public class LoggerBTC implements ICryptoLogger{
         // TODO Implement logging
     }
 
-    public void onProofOfWork(Miner chosenMiner, Block createdBlock) {
+    public void onProofOfWork(Miner chosenMiner, Block blockToMine) {
         // TODO Check if this is accurate
-        logger.info("The miner " + chosenMiner + " has solved the complex mathematical problem for block: " + createdBlock);
+        logger.info("The miner " + chosenMiner + " is solving the complex mathematical problem for block: " + blockToMine);
     }
 
     public void onBlockTransmission(Block transmittingBlock) {

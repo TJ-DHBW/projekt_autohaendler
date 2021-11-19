@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Block {
-    private final String guid;
     private final String previousHash;
     private final long timeStamp;
     private final int difficulty;
@@ -12,8 +11,7 @@ public class Block {
     private int nonce;
     private ArrayList<Transaction> transactions;
 
-    public Block(String guid, String previousHash, int difficulty) {
-        this.guid = guid;
+    public Block(String previousHash, int difficulty) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.nonce = 0;
@@ -25,7 +23,7 @@ public class Block {
 
 
     public String sha256() {
-        return Hashing.sha256(previousHash + timeStamp + nonce + guid);
+        return Hashing.sha256(previousHash + timeStamp + nonce);
     }
 
     public void incrementNonce() {
@@ -42,5 +40,9 @@ public class Block {
 
     public String getPreviousHash() {
         return previousHash;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
     }
 }

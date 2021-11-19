@@ -15,19 +15,15 @@ public class Miner {
         this.name = name;
     }
 
-    public void mineValidBlock(String guid) {
-        ArrayList<Block> blockChain = activeNetwork.getBlockChain();
-        String previousHash = !blockChain.isEmpty() ? blockChain.get(blockChain.size()-1).getHash() : "0";
-        int difficulty = Configuration.instance.difficulty;
-        Block newBlock = new Block(guid, previousHash, difficulty);
+    public void mineValidBlock(Block blockToMine) {
+        // TODO Miner needs to add its own reward here
+        int difficulty = blockToMine.getDifficulty();
         String target = new String(new char[difficulty]).replace('\0', '0');
 
-        while (!newBlock.getHash().substring(0, difficulty).equals(target)) {
-            newBlock.incrementNonce();
-            newBlock.calculateHash();
+        while (!blockToMine.getHash().substring(0, difficulty).equals(target)) {
+            blockToMine.incrementNonce();
+            blockToMine.calculateHash();
         }
-
-        blockChain.add(newBlock);
     }
 
     public boolean verifyTransaction(Transaction transaction){
