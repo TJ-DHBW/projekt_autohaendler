@@ -1,49 +1,38 @@
 package util;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.security.*;
+import java.util.Base64;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Signing {
 
-    // TODO Test if this works
-    public static SignedObject sign(PrivateKey privateKey, Serializable obj){
-        Signature sig = getSignature(privateKey.getAlgorithm());
-        if (sig == null) return null;
-        SignedObject ret;
+    public static String sign(String plainText, PrivateKey privateKey) {
         try {
-            ret = new SignedObject(obj, privateKey, sig);
-        } catch (IOException e) {
-            System.out.println("An exception occured while serializing the object for signing: " + obj);
-            e.printStackTrace();
-            return null;
-        } catch (InvalidKeyException e) {
-            System.out.println("The given private key for signing was invalid: " + privateKey);
-            return null;
-        } catch (SignatureException e) {
-            System.out.println("The signing failed with signer: " + sig);
-            e.printStackTrace();
-            return null;
+            Signature privateSignature = Signature.getInstance("SHA256withRSA");
+            privateSignature.initSign(privateKey);
+            privateSignature.update(plainText.getBytes(UTF_8));
+            byte[] signature = privateSignature.sign();
+            return Base64.getEncoder().encodeToString(signature);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        return ret;
+
+        return null;
     }
 
-    // TODO Test if this works
-    public static boolean verify(PublicKey publicKey, SignedObject obj){
-        Signature sig = getSignature(publicKey.getAlgorithm());
-        if (sig == null) return false;
-        boolean valid;
+    public static boolean verify(String plainText, String signature, PublicKey publicKey) {
         try {
-            valid =  obj.verify(publicKey, sig);
-        } catch (InvalidKeyException e) {
-            System.out.println("The given public key for verification was invalid: " + publicKey);
-            return false;
-        } catch (SignatureException e) {
-            System.out.println("Signature verification failed due to Signature engine: " + sig);
-            e.printStackTrace();
-            return false;
+            Signature publicSignature = Signature.getInstance("SHA256withRSA");
+            publicSignature.initVerify(publicKey);
+            publicSignature.update(plainText.getBytes(UTF_8));
+            byte[] signatureBytes = Base64.getDecoder().decode(signature);
+            return publicSignature.verify(signatureBytes);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        return valid;
+
+        return false;
     }
 
     public static KeyPairGenerator getKeyPairGenerator(){
@@ -53,15 +42,6 @@ public class Signing {
             return keyGen;
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Was not able to create a KeyPairGenerator with the RSA Algorithm.");
-            return null;
-        }
-    }
-
-    private static Signature getSignature(String algorithm){
-        try {
-            return Signature.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println("Was not able to create a Signature with the algorithm: " + algorithm);
             return null;
         }
     }
