@@ -34,15 +34,4 @@ public class Signing {
 
         return false;
     }
-
-    public static KeyPairGenerator getKeyPairGenerator(){
-        try {
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-            keyGen.initialize(2048);
-            return keyGen;
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println("Was not able to create a KeyPairGenerator with the RSA Algorithm.");
-            return null;
-        }
-    }
 }
