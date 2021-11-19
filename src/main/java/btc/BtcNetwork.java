@@ -41,7 +41,7 @@ public class BtcNetwork {
     private boolean handleNewTransaction(Transaction newTransaction) {
         // TODO Check if this is correct
         // TODO The creation of the unmined Block should be done in the miner. But then logging is shit.
-        Block newBlock = new Block(validBlockChain.get(validBlockChain.size()-1).getHash(), Configuration.instance.difficulty + validBlockChain.size());
+        Block newBlock = new Block(validBlockChain.get(validBlockChain.size()-1).getHash());
         Miner chosenMiner = getRandomMiner();
         if (chosenMiner == null){
             System.out.println("No miners registered on the Network. Transaction was not added.");
@@ -49,7 +49,7 @@ public class BtcNetwork {
         }
 
         loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
-        chosenMiner.mineValidBlock(newBlock);
+        chosenMiner.mineValidBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size());
         loggers.forEach(logger -> logger.onBlockTransmission(newBlock));
         if (!verifyProofOfWork(newBlock)) return false;
         validBlockChain.add(newBlock);

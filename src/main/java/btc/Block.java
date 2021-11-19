@@ -6,17 +6,15 @@ import java.util.Date;
 public class Block {
     private final String previousHash;
     private final long timeStamp;
-    private final int difficulty;
     private String hash;
     private int nonce;
     private ArrayList<Transaction> transactions;
 
-    public Block(String previousHash, int difficulty) {
+    public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.nonce = 0;
         this.hash = this.sha256();
-        this.difficulty = difficulty;
         this.transactions = new ArrayList<>();
     }
 
@@ -40,9 +38,5 @@ public class Block {
 
     public String getPreviousHash() {
         return previousHash;
-    }
-
-    public int getDifficulty() {
-        return difficulty;
     }
 }
