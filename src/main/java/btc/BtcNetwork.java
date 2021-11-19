@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class BtcNetwork {
     private final ArrayList<Block> validBlockChain = new ArrayList<>();
-    public ArrayList<Miner> registeredMiner;
+    public ArrayList<Miner> registeredMiner = new ArrayList<>();
 
     private final ArrayList<ICryptoLogger> loggers = new ArrayList<>();
 

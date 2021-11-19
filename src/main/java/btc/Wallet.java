@@ -1,12 +1,12 @@
 package btc;
 
 import config.Configuration;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class Wallet {
@@ -16,6 +16,10 @@ public class Wallet {
 
     public Wallet() {
         generateKeyPair();
+    }
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
     }
 
     public void generateKeyPair() {
