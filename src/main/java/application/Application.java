@@ -4,7 +4,6 @@ import actors.Person;
 import actors.Miner;
 import actors.Tesla;
 import btc.BtcNetwork;
-import btc.Transaction;
 import btc.Wallet;
 import util.ICryptoLogger;
 import util.LoggerBTC;
@@ -47,5 +46,22 @@ public class Application {
         Person ivey = new Person("Phil", "Ivey");
         Wallet wallet3 = new Wallet();
         ivey.setWallet(wallet3);
+
+        buyTeslaS(ho, carDealer);
+        buyTeslaS(ho, carDealer);
+        buyTeslaS(negreanu, carDealer);
+        buyTeslaS(negreanu, carDealer);
+        buyTeslaS(ivey, carDealer);
+
+        System.out.println("--------Overview--------");
+        System.out.println("Ho: BTC=" + carDealer.getWallet().getBalance() + ", Teslas=" + carDealer.getTeslasInPossession().size());
+        System.out.println("Ho: BTC=" + ho.getWallet().getBalance() + ", Teslas=" + ho.getTeslasInPossession().size());
+        System.out.println("Ho: BTC=" + negreanu.getWallet().getBalance() + ", Teslas=" + negreanu.getTeslasInPossession().size());
+        System.out.println("Ho: BTC=" + ivey.getWallet().getBalance() + ", Teslas=" + ivey.getTeslasInPossession().size());
+        System.out.println("--------End--------");
+    }
+
+    public static void buyTeslaS(Person buyer, Person seller){
+        //TODO Implement helper function for buying a tesla.
     }
 }

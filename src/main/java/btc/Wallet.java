@@ -52,6 +52,7 @@ public class Wallet {
         return total;
     }
 
+    // TODO Should this get an argument what currency should be sent?
     public Transaction sendFunds(PublicKey recipient, float value) {
         if (getBalance() < value) {
             System.out.println("#not enough funds to send transaction - transaction discarded");
