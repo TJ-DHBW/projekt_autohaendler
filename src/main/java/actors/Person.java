@@ -46,6 +46,28 @@ public class Person {
         return true;
     }
 
+    public void donateEuroToInstitution(Institution institution, float euroToDonate){
+        if (euroToDonate > this.euro) return;
+        this.euro -= euroToDonate;
+        institution.receiveDonation(euroToDonate);
+    }
+
+    public void donateWalletToInstitution(Institution institution){
+        if(this.wallet == null) return;
+        institution.receiveDonation(this.wallet);
+        this.wallet = null;
+    }
+
+    public void liveAContentLifeWithoutBTCAndMuchMoney(){
+        if (this.wallet != null || this.euro > 100){
+            throw new IllegalStateException("A content life can only be lived if you donate all your belongings.");
+        }
+    }
+
+    public void receiveEuro(float euroReceived){
+        this.euro += euroReceived;
+    }
+
     public float getEuro() {
         return euro;
     }

@@ -14,4 +14,5 @@ public enum Configuration {
         public final double EURtoBTC = 0.000019;
         public final float teslaPriceBTC = 1.93781f;
         public final float miningReward = 0.025f;
+        public final float WSOPPriceMoney = 1000000;
 }
