@@ -4,6 +4,7 @@ import actors.*;
 import btc.BtcNetwork;
 import btc.Wallet;
 import config.Configuration;
+import util.BlockchainSaver;
 import util.ICryptoLogger;
 import util.LoggerBTC;
 
@@ -60,6 +61,8 @@ public class Application {
         buyTeslaSWithBTC(negreanu, carDealer);
         buyTeslaSWithBTC(negreanu, carDealer);
         buyTeslaSWithBTC(ivey, carDealer);
+
+        BlockchainSaver.asJson(btcNetwork.getBlockChain(), "blockchain.json");
 
         System.out.println("--------Overview--------");
         System.out.println("Ho: BTC=" + carDealer.getWallet().getBalance() + ", Teslas=" + carDealer.getTeslasInPossession().size() + ", EUR=" + carDealer.getEuro());

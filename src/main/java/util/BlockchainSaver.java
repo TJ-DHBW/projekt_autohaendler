@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class BlockchainSaver {
-    static void asJson(List<Block> blockchain, String pathName){
+    public static void asJson(List<Block> blockchain, String pathName){
         String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
 
         BufferedWriter writer;
