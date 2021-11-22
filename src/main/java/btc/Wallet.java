@@ -10,20 +10,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Wallet {
-    public HashMap<String, TransactionOutput> utx0Map = new HashMap<>();
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
+
     private final BtcNetwork associatedNetwork;
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
+    public HashMap<String, TransactionOutput> utx0Map = new HashMap<>();
 
     public Wallet(BtcNetwork network) {
         this.associatedNetwork = network;
-        KeyPair keyPair= generateKeyPair();
+        KeyPair keyPair = generateKeyPair();
         this.privateKey = keyPair.getPrivate();
         this.publicKey = keyPair.getPublic();
-    }
-
-    static {
-        Security.addProvider(new BouncyCastleProvider());
     }
 
     public static KeyPair generateKeyPair() {
@@ -53,14 +53,14 @@ public class Wallet {
         return total;
     }
 
-    public boolean sendFunds(PublicKey recipient, float value){
+    public boolean sendFunds(PublicKey recipient, float value) {
         Transaction transaction = createTransaction(recipient, value);
         if (transaction == null) return false;
         this.getAssociatedNetwork().getLoggers().forEach(logger -> logger.onTransaction(transaction));
         return this.associatedNetwork.broadcastTransaction(transaction);
     }
 
-    public boolean createGenesis(){
+    public boolean createGenesis() {
         RewardTransaction genesisTransaction = new RewardTransaction(publicKey, true);
         genesisTransaction.generateSignature(privateKey);
 

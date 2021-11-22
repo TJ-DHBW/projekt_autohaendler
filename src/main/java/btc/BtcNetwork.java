@@ -8,26 +8,25 @@ import java.util.ArrayList;
 
 public class BtcNetwork {
     private final ArrayList<Block> validBlockChain = new ArrayList<>();
-    public ArrayList<Miner> registeredMiner = new ArrayList<>();
-
     private final ArrayList<ICryptoLogger> loggers = new ArrayList<>();
+    public ArrayList<Miner> registeredMiner = new ArrayList<>();
 
     /***
      * Make sure you dont want to call Miner.setActiveNetwork instead of this
      * @param miner The miner to register for the network.
      */
-    public void registerMiner(Miner miner){
+    public void registerMiner(Miner miner) {
         if (registeredMiner.contains(miner)) return;
         registeredMiner.add(miner);
     }
 
-    private Miner getRandomMiner(){
+    private Miner getRandomMiner() {
         if (registeredMiner.isEmpty()) return null;
         int randomIndex = Configuration.instance.r.nextInt(registeredMiner.size());
         return registeredMiner.get(randomIndex);
     }
 
-    public boolean broadcastTransaction(Transaction transaction){
+    public boolean broadcastTransaction(Transaction transaction) {
         loggers.forEach(logger -> logger.onBroadcast(transaction));
         if (!verifyTransaction(transaction)) return false;
         return handleNewTransaction(transaction);
@@ -36,7 +35,7 @@ public class BtcNetwork {
     private boolean handleNewTransaction(Transaction verifiedTransaction) {
         Block newBlock;
         Miner chosenMiner = getRandomMiner();
-        if(verifiedTransaction.getClass()==RewardTransaction.class){
+        if (verifiedTransaction.getClass() == RewardTransaction.class) {
             newBlock = new Block("0");
             newBlock.addTransaction(verifiedTransaction);
             loggers.forEach(logger -> logger.onStructuring(verifiedTransaction, newBlock));
@@ -46,8 +45,7 @@ public class BtcNetwork {
             }
             loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
             chosenMiner.mineGenesisBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size() * Configuration.instance.difficultyIncreasePerBlock);
-        }
-        else {
+        } else {
             newBlock = new Block(validBlockChain.get(validBlockChain.size() - 1).getHash());
             newBlock.addTransaction(verifiedTransaction);
             if (chosenMiner == null) {
@@ -64,23 +62,23 @@ public class BtcNetwork {
         return true;
     }
 
-    private boolean verifyProofOfWork(Block blockToVerify){
-        for (Miner miner : registeredMiner){
+    private boolean verifyProofOfWork(Block blockToVerify) {
+        for (Miner miner : registeredMiner) {
             if (!miner.verifyProofOfWork(blockToVerify)) return false;
         }
         loggers.forEach(loggers -> loggers.onProofOfWorkVerification(blockToVerify));
         return true;
     }
 
-    private boolean verifyTransaction(Transaction transactionToVerify){
-        for (Miner miner : registeredMiner){
+    private boolean verifyTransaction(Transaction transactionToVerify) {
+        for (Miner miner : registeredMiner) {
             if (!miner.verifyTransaction(transactionToVerify)) return false;
         }
         loggers.forEach(logger -> logger.onTransactionVerification(transactionToVerify));
         return true;
     }
 
-    public void registerLogger(ICryptoLogger logger){
+    public void registerLogger(ICryptoLogger logger) {
         if (loggers.contains(logger)) return;
         loggers.add(logger);
     }

@@ -8,11 +8,10 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Formatter;
 import java.util.Locale;
 import java.util.logging.*;
 
-public class LoggerBTC implements ICryptoLogger{
+public class LoggerBTC implements ICryptoLogger {
     private final Logger logger;
     private final FileHandler fh;
 
@@ -26,7 +25,7 @@ public class LoggerBTC implements ICryptoLogger{
             fh1 = null;
         }
         this.fh = fh1;
-        fh.setFormatter(new SimpleFormatter(){
+        fh.setFormatter(new SimpleFormatter() {
             @Override
             public String format(LogRecord record) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(Locale.GERMANY).withZone(ZoneId.systemDefault());
@@ -50,7 +49,7 @@ public class LoggerBTC implements ICryptoLogger{
     }
 
     public void onStructuring(Transaction addedTransaction, Block newBlock) {
-        logger.info("Transaction "+addedTransaction+" has been added to block "+newBlock);
+        logger.info("Transaction " + addedTransaction + " has been added to block " + newBlock);
     }
 
     public void onProofOfWork(Miner chosenMiner, Block blockToMine) {

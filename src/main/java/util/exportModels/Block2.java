@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class Block2 {
     private final String previousHash;
     private final long timeStamp;
+    private final ArrayList<Transaction2> transactions;
     private String hash;
     private int nonce;
-    private final ArrayList<Transaction2> transactions;
     private String merkleRoot;
 
     public Block2(Block block) {
@@ -19,7 +19,7 @@ public class Block2 {
         this.hash = block.getHash();
         this.nonce = block.getNonce();
         this.transactions = new ArrayList<>();
-        for (Transaction tx : block.getTransactions()){
+        for (Transaction tx : block.getTransactions()) {
             this.transactions.add(new Transaction2(tx));
         }
         this.merkleRoot = block.getMerkleRoot();

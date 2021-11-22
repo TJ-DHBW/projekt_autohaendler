@@ -2,7 +2,7 @@ package actors;
 
 import config.Configuration;
 
-public class CarDealer extends Person{
+public class CarDealer extends Person {
     private float teslaModelSPriceBTC = Configuration.instance.teslaPriceBTC;
     private float teslaModelSPriceEUR = Configuration.instance.teslaPriceEUR;
 
@@ -10,8 +10,8 @@ public class CarDealer extends Person{
         super(fistName, lastName);
     }
 
-    public float getTeslaModelSPrice(String currency){
-        switch (currency){
+    public float getTeslaModelSPrice(String currency) {
+        switch (currency) {
             case "EUR":
                 return this.teslaModelSPriceEUR;
             case "BTC":

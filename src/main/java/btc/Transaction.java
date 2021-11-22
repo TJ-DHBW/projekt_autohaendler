@@ -1,10 +1,12 @@
 package btc;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.util.ArrayList;
 
 import config.Configuration;
 import util.StringUtility;
+
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Transaction {
     protected final PublicKey sender;
@@ -42,6 +44,7 @@ public class Transaction {
 
     /**
      * Verifies a signature
+     *
      * @return false if verified.
      */
     public boolean verifySignature() {
@@ -141,8 +144,8 @@ public class Transaction {
     @Override
     public String toString() {
         return "Transaction{" +
-                "sender=" + sender.getEncoded() +
-                ", recipient=" + recipient.getEncoded() +
+                "sender=" + Arrays.toString(sender.getEncoded()) +
+                ", recipient=" + Arrays.toString(recipient.getEncoded()) +
                 ", value=" + value +
                 '}';
     }

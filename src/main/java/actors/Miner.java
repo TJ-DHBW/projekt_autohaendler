@@ -4,8 +4,6 @@ import btc.*;
 import config.Configuration;
 import util.StringUtility;
 
-import java.util.ArrayList;
-
 public class Miner {
     private String name;
     private Wallet wallet;
@@ -28,7 +26,7 @@ public class Miner {
         }
     }
 
-    public void mineGenesisBlock(Block genesisBlock, int difficulty){
+    public void mineGenesisBlock(Block genesisBlock, int difficulty) {
         genesisBlock.setMerkleRoot(StringUtility.getMerkleRoot(genesisBlock.getTransactions()));
         String target = new String(new char[difficulty]).replace('\0', '0');
         while (!genesisBlock.getHash().substring(0, difficulty).equals(target)) {
@@ -36,15 +34,16 @@ public class Miner {
             genesisBlock.calculateHash();
         }
     }
-    public boolean verifyTransaction(Transaction transaction){
-        if (transaction.getId() == null){
+
+    public boolean verifyTransaction(Transaction transaction) {
+        if (transaction.getId() == null) {
             return transaction.processTransaction();
-        }else{
+        } else {
             return !transaction.verifySignature();
         }
     }
 
-    public boolean verifyProofOfWork(Block blockToVerify){
+    public boolean verifyProofOfWork(Block blockToVerify) {
         int difficulty = Configuration.instance.difficulty;
         String target = new String(new char[difficulty]).replace('\0', '0');
         return blockToVerify.getHash().substring(0, difficulty).equals(target);

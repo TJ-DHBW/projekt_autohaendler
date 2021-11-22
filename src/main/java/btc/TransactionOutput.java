@@ -1,5 +1,7 @@
 package btc;
+
 import util.StringUtility;
+
 import java.security.PublicKey;
 
 public class TransactionOutput {

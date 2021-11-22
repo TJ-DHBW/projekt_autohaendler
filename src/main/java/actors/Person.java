@@ -1,7 +1,6 @@
 package actors;
 
 import btc.Wallet;
-import config.Configuration;
 
 import java.util.ArrayList;
 
@@ -23,22 +22,22 @@ public class Person {
         return teslasInPossession;
     }
 
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
-    }
-
     public Wallet getWallet() {
         return wallet;
     }
 
-    public boolean sendEuro(Person receiver, float amount){
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    public boolean sendEuro(Person receiver, float amount) {
         if (amount > this.euro) return false;
         this.euro -= amount;
         receiver.euro += amount;
         return true;
     }
 
-    public boolean transferTesla(Person receiver){
+    public boolean transferTesla(Person receiver) {
         if (this.teslasInPossession.size() < 1) return false;
         Tesla teslaToTransfer = this.teslasInPossession.get(0);
         this.teslasInPossession.remove(teslaToTransfer);
@@ -46,25 +45,25 @@ public class Person {
         return true;
     }
 
-    public void donateEuroToInstitution(Institution institution, float euroToDonate){
+    public void donateEuroToInstitution(Institution institution, float euroToDonate) {
         if (euroToDonate > this.euro) return;
         this.euro -= euroToDonate;
         institution.receiveDonation(euroToDonate);
     }
 
-    public void donateWalletToInstitution(Institution institution){
-        if(this.wallet == null) return;
+    public void donateWalletToInstitution(Institution institution) {
+        if (this.wallet == null) return;
         institution.receiveDonation(this.wallet);
         this.wallet = null;
     }
 
-    public void liveAContentLifeWithoutBTCAndMuchMoney(){
-        if (this.wallet != null || this.euro > 100){
+    public void liveAContentLifeWithoutBTCAndMuchMoney() {
+        if (this.wallet != null || this.euro > 100) {
             throw new IllegalStateException("A content life can only be lived if you donate all your belongings.");
         }
     }
 
-    public void receiveEuro(float euroReceived){
+    public void receiveEuro(float euroReceived) {
         this.euro += euroReceived;
     }
 

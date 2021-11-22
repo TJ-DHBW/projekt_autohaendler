@@ -11,7 +11,7 @@ public class Transaction2 {
     protected final String recipient;
     protected final float value;
     protected final ArrayList<TransactionOutput2> outputs = new ArrayList<>();
-    protected final ArrayList<TransactionInput2> inputs = new ArrayList();
+    protected final ArrayList<TransactionInput2> inputs = new ArrayList<>();
     protected String id;
     protected byte[] signature;
 
@@ -22,10 +22,10 @@ public class Transaction2 {
         this.id = tx.getId();
         this.signature = tx.getSignature();
 
-        for (TransactionInput in : tx.getInputs()){
+        for (TransactionInput in : tx.getInputs()) {
             this.inputs.add(new TransactionInput2(in));
         }
-        for (TransactionOutput out : tx.getOutputs()){
+        for (TransactionOutput out : tx.getOutputs()) {
             this.outputs.add(new TransactionOutput2(out));
         }
     }

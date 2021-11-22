@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BlockchainSaver {
-    public static void asJson(ArrayList<Block> blockchain, String pathName){
+    public static void asJson(ArrayList<Block> blockchain, String pathName) {
         ArrayList<Block2> blocks = blockchainToScuffedBlockchain(blockchain);
         String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blocks);
 
@@ -25,9 +25,9 @@ public class BlockchainSaver {
         }
     }
 
-    private static ArrayList<Block2> blockchainToScuffedBlockchain(ArrayList<Block> blockchain){
+    private static ArrayList<Block2> blockchainToScuffedBlockchain(ArrayList<Block> blockchain) {
         ArrayList<Block2> ret = new ArrayList<>();
-        for(Block blk : blockchain){
+        for (Block blk : blockchain) {
             ret.add(new Block2(blk));
         }
         return ret;

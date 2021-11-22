@@ -1,4 +1,5 @@
 package util;
+
 import btc.Transaction;
 
 import java.nio.charset.StandardCharsets;

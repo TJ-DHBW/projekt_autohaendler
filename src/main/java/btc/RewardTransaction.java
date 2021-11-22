@@ -4,13 +4,10 @@ import config.Configuration;
 import util.StringUtility;
 
 import java.security.PublicKey;
-import java.util.ArrayList;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 
 public class RewardTransaction extends Transaction {
     public RewardTransaction(PublicKey from, boolean isGenesis) {
-        super(from, isGenesis? Configuration.instance.genesisValue : Configuration.instance.miningReward);
+        super(from, isGenesis ? Configuration.instance.genesisValue : Configuration.instance.miningReward);
     }
 
     public boolean processTransaction() {
@@ -22,9 +19,10 @@ public class RewardTransaction extends Transaction {
         }
         return true;
     }
+
     public boolean verifySignature() {
         String data = StringUtility.getStringFromKey(sender) + StringUtility.getStringFromKey(recipient) + value;
-        if(signature == null){
+        if (signature == null) {
             int i = 0;
         }
         return !StringUtility.verifyECDSASig(sender, data, signature);

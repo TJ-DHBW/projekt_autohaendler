@@ -6,10 +6,9 @@ import java.util.Date;
 public class Block {
     private final String previousHash;
     private final long timeStamp;
+    private final ArrayList<Transaction> transactions;
     private String hash;
     private int nonce;
-    private final ArrayList<Transaction> transactions;
-
     private String merkleRoot;
 
     public Block(String previousHash) {
@@ -41,7 +40,7 @@ public class Block {
         return previousHash;
     }
 
-    public void addTransaction(Transaction transactionToAdd){
+    public void addTransaction(Transaction transactionToAdd) {
         if (transactions.contains(transactionToAdd)) return;
         transactions.add(transactionToAdd);
     }
@@ -54,16 +53,16 @@ public class Block {
         return nonce;
     }
 
-    public void setMerkleRoot(String merkleRoot) {
-        this.merkleRoot = merkleRoot;
-    }
-
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 
     public String getMerkleRoot() {
         return merkleRoot;
+    }
+
+    public void setMerkleRoot(String merkleRoot) {
+        this.merkleRoot = merkleRoot;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Application {
         btcNetwork.registerMiner(new Miner("Sam", btcNetwork));
 
         CarDealer carDealer = new CarDealer("Jimmy", "CarDealer");
-        for(int i = 0; i<5; i++) {
+        for (int i = 0; i < 5; i++) {
             carDealer.getTeslasInPossession().add(new Tesla("S"));
         }
         Wallet walletDealer = new Wallet(btcNetwork);
@@ -38,7 +38,7 @@ public class Application {
         Person ho = new Person("Maria", "Ho");
         Wallet wallet1 = new Wallet(btcNetwork);
         ho.setWallet(wallet1);
-        Person negreanu = new Person( "Daniel", "Negreanu");
+        Person negreanu = new Person("Daniel", "Negreanu");
         Wallet wallet2 = new Wallet(btcNetwork);
         negreanu.setWallet(wallet2);
         Person ivey = new Person("Phil", "Ivey");
@@ -73,29 +73,29 @@ public class Application {
         System.out.println("--------End--------");
     }
 
-    public static void buyTeslaSWithBTC(Person buyer, CarDealer seller){
+    public static void buyTeslaSWithBTC(Person buyer, CarDealer seller) {
         float teslaModelSPriceBTC = seller.getTeslaModelSPrice("BTC");
-        if (!buyer.getWallet().sendFunds(seller.getWallet().getPublicKey(), teslaModelSPriceBTC)){
+        if (!buyer.getWallet().sendFunds(seller.getWallet().getPublicKey(), teslaModelSPriceBTC)) {
             System.out.println("Something with the payment for the Tesla Model S in BTC went wrong. Aborting.");
             return;
         }
-        if (!seller.transferTesla(buyer)){
+        if (!seller.transferTesla(buyer)) {
             System.out.println("Can not transfer a tesla. Payment should be revoked.");
         }
     }
 
-    public static void buyBTCWithEuro(Person buyer, Person seller, float bitcoinsToBuy){
-        float priceEUR = (float) (bitcoinsToBuy/ Configuration.instance.EURtoBTC);
-        if (!buyer.sendEuro(seller, priceEUR)){
+    public static void buyBTCWithEuro(Person buyer, Person seller, float bitcoinsToBuy) {
+        float priceEUR = (float) (bitcoinsToBuy / Configuration.instance.EURtoBTC);
+        if (!buyer.sendEuro(seller, priceEUR)) {
             System.out.println("The sending of euro failed, while buying BTC.");
             return;
         }
-        if (!seller.getWallet().sendFunds(buyer.getWallet().getPublicKey(), bitcoinsToBuy)){
+        if (!seller.getWallet().sendFunds(buyer.getWallet().getPublicKey(), bitcoinsToBuy)) {
             System.out.println("The sending of BTC failed while purchasing BTC with euro. Please send back the moneys.");
         }
     }
 
-    public static void winnerOfWSOP(Person winnerOfTheWSOP){
+    public static void winnerOfWSOP(Person winnerOfTheWSOP) {
         winnerOfTheWSOP.receiveEuro(Configuration.instance.WSOPPriceMoney);
     }
 }
