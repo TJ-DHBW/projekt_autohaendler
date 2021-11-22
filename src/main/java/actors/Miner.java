@@ -6,13 +6,12 @@ import config.Configuration;
 import java.util.ArrayList;
 
 public class Miner {
-    private BtcNetwork activeNetwork;
     private String name;
     private Wallet wallet;
 
-    public Miner(String name) {
+    public Miner(String name, BtcNetwork networkToMineOn) {
         this.name = name;
-        wallet = new Wallet();
+        wallet = new Wallet(networkToMineOn);
     }
 
     public void mineValidBlock(Block blockToMine, int difficulty) {
@@ -42,10 +41,5 @@ public class Miner {
         int difficulty = Configuration.instance.difficulty;
         String target = new String(new char[difficulty]).replace('\0', '0');
         return blockToVerify.getHash().substring(0, difficulty).equals(target);
-    }
-
-    public void setActiveNetwork(BtcNetwork activeNetwork) {
-        this.activeNetwork = activeNetwork;
-        activeNetwork.registerMiner(this);
     }
 }

@@ -14,7 +14,6 @@ public class Person {
     public Person(String fistName, String lastName) {
         this.fistName = fistName;
         this.lastName = lastName;
-        this.wallet = new Wallet();
         this.teslasInPossession = new ArrayList<>();
         this.euro = 0f;
     }

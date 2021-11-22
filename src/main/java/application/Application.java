@@ -19,12 +19,9 @@ public class Application {
         ICryptoLogger logger = new LoggerBTC(logFilePath);
         btcNetwork.registerLogger(logger);
 
-        Miner bob = new Miner("Bob");
-        bob.setActiveNetwork(btcNetwork);
-        Miner eve = new Miner("Eve");
-        eve.setActiveNetwork(btcNetwork);
-        Miner sam = new Miner("Sam");
-        sam.setActiveNetwork(btcNetwork);
+        btcNetwork.registerMiner(new Miner("Bob", btcNetwork));
+        btcNetwork.registerMiner(new Miner("Eve", btcNetwork));
+        btcNetwork.registerMiner(new Miner("Sam", btcNetwork));
 
         Person carDealer = new Person("Jimmy", "CarDealer");
         for(int i = 0; i<5; i++) {
@@ -32,7 +29,7 @@ public class Application {
         }
 
         Person nakamoto = new Person("Satoshi", "Nakamoto");
-        Wallet wallet0 = new Wallet();
+        Wallet wallet0 = new Wallet(btcNetwork);
         nakamoto.setWallet(wallet0);
         Institution germanChildrensCancerAid = new Institution("German children's cancer aid");
 
@@ -40,13 +37,13 @@ public class Application {
         //Transaction transaction = new Transaction(null, nakamoto.getWallet().getPublicKey(), 100,  );
 
         Person ho = new Person("Maria", "Ho");
-        Wallet wallet1 = new Wallet();
+        Wallet wallet1 = new Wallet(btcNetwork);
         ho.setWallet(wallet1);
         Person negreanu = new Person( "Daniel", "Negreanu");
-        Wallet wallet2 = new Wallet();
+        Wallet wallet2 = new Wallet(btcNetwork);
         negreanu.setWallet(wallet2);
         Person ivey = new Person("Phil", "Ivey");
-        Wallet wallet3 = new Wallet();
+        Wallet wallet3 = new Wallet(btcNetwork);
         ivey.setWallet(wallet3);
 
         winnerOfWSOP(ho);

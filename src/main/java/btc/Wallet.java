@@ -11,28 +11,29 @@ import java.util.Map;
 
 public class Wallet {
     public HashMap<String, TransactionOutput> utx0Map = new HashMap<>();
-    private PrivateKey privateKey;
-    private PublicKey publicKey;
+    private final BtcNetwork associatedNetwork;
+    private final PrivateKey privateKey;
+    private final PublicKey publicKey;
 
-    public Wallet() {
-        generateKeyPair();
+    public Wallet(BtcNetwork network) {
+        this.associatedNetwork = network;
+        KeyPair keyPair= generateKeyPair();
+        this.privateKey = keyPair.getPrivate();
+        this.publicKey = keyPair.getPublic();
     }
 
     static {
         Security.addProvider(new BouncyCastleProvider());
     }
 
-    public void generateKeyPair() {
+    public static KeyPair generateKeyPair() {
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA", "BC");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
 
             keyGen.initialize(ecSpec, random);
-            KeyPair keyPair = keyGen.generateKeyPair();
-
-            privateKey = keyPair.getPrivate();
-            publicKey = keyPair.getPublic();
+            return keyGen.generateKeyPair();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -52,8 +53,13 @@ public class Wallet {
         return total;
     }
 
-    // TODO Should this get an argument what currency should be sent? Because we need to pass the BTC Network (or get it from a list)
-    public Transaction sendFunds(PublicKey recipient, float value) {
+    public boolean sendFunds(PublicKey recipient, float value){
+        Transaction transaction = createTransaction(recipient, value);
+        if (transaction == null) return false;
+        return this.associatedNetwork.broadcastTransaction(transaction);
+    }
+
+    private Transaction createTransaction(PublicKey recipient, float value) {
         if (getBalance() < value) {
             System.out.println("#not enough funds to send transaction - transaction discarded");
             return null;
