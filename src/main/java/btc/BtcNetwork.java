@@ -86,4 +86,8 @@ public class BtcNetwork {
         if (loggers.contains(logger)) return;
         loggers.add(logger);
     }
+
+    public ArrayList<Block> getBlockChain() {
+        return validBlockChain;
+    }
 }
