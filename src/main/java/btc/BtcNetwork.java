@@ -27,11 +27,6 @@ public class BtcNetwork {
         return registeredMiner.get(randomIndex);
     }
 
-    public ArrayList<Block> getBlockChain() {
-        // TODO This is a problem, because miners could modify the blockchain.
-        return validBlockChain;
-    }
-
     public boolean broadcastTransaction(Transaction transaction){
         loggers.forEach(logger -> logger.onBroadcast(transaction));
         if (!verifyTransaction(transaction)) return false;

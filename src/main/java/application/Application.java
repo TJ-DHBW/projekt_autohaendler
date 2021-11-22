@@ -12,7 +12,6 @@ import util.LoggerBTC;
 
 
 public class Application {
-    // TODO decide logFilePath
     public static final String logFilePath = "logFile.txt";
 
     public static void main(String[] args) {

@@ -52,7 +52,7 @@ public class Wallet {
         return total;
     }
 
-    // TODO Should this get an argument what currency should be sent?
+    // TODO Should this get an argument what currency should be sent? Because we need to pass the BTC Network (or get it from a list)
     public Transaction sendFunds(PublicKey recipient, float value) {
         if (getBalance() < value) {
             System.out.println("#not enough funds to send transaction - transaction discarded");
