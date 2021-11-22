@@ -1,2 +1,7 @@
 # Project exclude paths
 /.gradle/
+/build/
+/gradle/
+logFile.txt
+blockchain.json
+spezifikation.pdf
