@@ -1,6 +1,7 @@
 package actors;
 
 import btc.Wallet;
+import config.Configuration;
 
 import java.util.ArrayList;
 

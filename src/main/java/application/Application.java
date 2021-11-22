@@ -4,8 +4,7 @@ import actors.Institution;
 import actors.Person;
 import actors.Miner;
 import actors.Tesla;
-import btc.BtcNetwork;
-import btc.Wallet;
+import btc.*;
 import config.Configuration;
 import util.ICryptoLogger;
 import util.LoggerBTC;
@@ -27,14 +26,15 @@ public class Application {
         for(int i = 0; i<5; i++) {
             carDealer.getTeslasInPossession().add(new Tesla("S"));
         }
+        Wallet walletDealer = new Wallet(btcNetwork);
+        carDealer.setWallet(walletDealer);
 
         Person nakamoto = new Person("Satoshi", "Nakamoto");
         Wallet wallet0 = new Wallet(btcNetwork);
         nakamoto.setWallet(wallet0);
-        Institution germanChildrensCancerAid = new Institution("German children's cancer aid");
+        nakamoto.getWallet().createGenesis();
 
-        //todo check where transactionInputId comes from
-        //Transaction transaction = new Transaction(null, nakamoto.getWallet().getPublicKey(), 100,  );
+        Institution germanChildrensCancerAid = new Institution("German children's cancer aid");
 
         Person ho = new Person("Maria", "Ho");
         Wallet wallet1 = new Wallet(btcNetwork);

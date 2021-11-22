@@ -22,10 +22,10 @@ public class Transaction {
         this.inputs = inputs;
     }
 
-    protected Transaction(PublicKey from) {
+    protected Transaction(PublicKey from, float value) {
         this.sender = from;
         this.recipient = from;
-        this.value = Configuration.instance.miningReward;
+        this.value = value;
         this.inputs = new ArrayList<>();
     }
 

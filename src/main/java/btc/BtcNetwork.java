@@ -36,16 +36,29 @@ public class BtcNetwork {
     private boolean handleNewTransaction(Transaction verifiedTransaction) {
         // TODO Check if this is correct
         // TODO The creation of the unmined Block should be done in the miner. But then logging is shit.
-        Block newBlock = new Block(validBlockChain.get(validBlockChain.size()-1).getHash());
-        newBlock.addTransaction(verifiedTransaction);
-        Miner chosenMiner = getRandomMiner();
-        if (chosenMiner == null){
-            System.out.println("No miners registered on the Network. Transaction was not added.");
-            return false;
-        }
 
-        loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
-        chosenMiner.mineValidBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size());
+        Block newBlock;
+        Miner chosenMiner = getRandomMiner();
+        if(verifiedTransaction.getClass()==RewardTransaction.class){
+            newBlock = new Block("0");
+            newBlock.addTransaction(verifiedTransaction);
+            if (chosenMiner == null) {
+                System.out.println("No miners registered on the Network. Transaction was not added.");
+                return false;
+            }
+            loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
+            chosenMiner.mineGenesisBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size());
+        }
+        else {
+            newBlock = new Block(validBlockChain.get(validBlockChain.size() - 1).getHash());
+            newBlock.addTransaction(verifiedTransaction);
+            if (chosenMiner == null) {
+                System.out.println("No miners registered on the Network. Transaction was not added.");
+                return false;
+            }
+            loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
+            chosenMiner.mineValidBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size());
+        }
         loggers.forEach(logger -> logger.onBlockTransmission(newBlock));
         if (!verifyProofOfWork(newBlock)) return false;
         validBlockChain.add(newBlock);

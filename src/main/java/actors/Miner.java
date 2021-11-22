@@ -15,17 +15,23 @@ public class Miner {
     }
 
     public void mineValidBlock(Block blockToMine, int difficulty) {
-        // TODO Miner needs to add its own reward here
-        RewardTransaction rewardTransaction = new RewardTransaction(this.wallet.getPublicKey());
+        // TODO Done? Miner needs to add its own reward here
+        RewardTransaction rewardTransaction = new RewardTransaction(this.wallet.getPublicKey(), false);
         blockToMine.addTransaction(rewardTransaction);
         String target = new String(new char[difficulty]).replace('\0', '0');
-
         while (!blockToMine.getHash().substring(0, difficulty).equals(target)) {
             blockToMine.incrementNonce();
             blockToMine.calculateHash();
         }
     }
 
+    public void mineGenesisBlock(Block genesisBlock, int difficulty){
+        String target = new String(new char[difficulty]).replace('\0', '0');
+        while (!genesisBlock.getHash().substring(0, difficulty).equals(target)) {
+            genesisBlock.incrementNonce();
+            genesisBlock.calculateHash();
+        }
+    }
     public boolean verifyTransaction(Transaction transaction){
         //todo Check if correct
         if (transaction.getId() == null){

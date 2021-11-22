@@ -59,6 +59,13 @@ public class Wallet {
         return this.associatedNetwork.broadcastTransaction(transaction);
     }
 
+    public boolean createGenesis(){
+        RewardTransaction genesisTransaction = new RewardTransaction(publicKey, true);
+        genesisTransaction.generateSignature(privateKey);
+
+        return this.associatedNetwork.broadcastTransaction(genesisTransaction);
+    }
+
     private Transaction createTransaction(PublicKey recipient, float value) {
         if (getBalance() < value) {
             System.out.println("#not enough funds to send transaction - transaction discarded");
