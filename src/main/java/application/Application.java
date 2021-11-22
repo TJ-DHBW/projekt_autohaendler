@@ -63,7 +63,7 @@ public class Application {
         buyTeslaSWithBTC(negreanu, carDealer);
         buyTeslaSWithBTC(ivey, carDealer);
 
-        //BlockchainSaver.asJson(btcNetwork.getBlockChain(), "blockchain.json");
+        BlockchainSaver.asJson(btcNetwork.getBlockChain(), "blockchain.json");
 
         System.out.println("--------Overview--------");
         System.out.println("Jimmy: BTC=" + carDealer.getWallet().getBalance() + ", Teslas=" + carDealer.getTeslasInPossession().size() + ", EUR=" + carDealer.getEuro());

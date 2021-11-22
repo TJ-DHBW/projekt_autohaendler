@@ -43,4 +43,16 @@ public class Block {
         if (transactions.contains(transactionToAdd)) return;
         transactions.add(transactionToAdd);
     }
+
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public int getNonce() {
+        return nonce;
+    }
 }
