@@ -5,6 +5,7 @@ import actors.Miner;
 import actors.Tesla;
 import btc.BtcNetwork;
 import btc.Wallet;
+import config.Configuration;
 import util.ICryptoLogger;
 import util.LoggerBTC;
 
@@ -47,6 +48,10 @@ public class Application {
         Wallet wallet3 = new Wallet();
         ivey.setWallet(wallet3);
 
+        buyBTCWithEuro(ho, nakamoto, 18.92f);
+        buyBTCWithEuro(negreanu, nakamoto, 18.92f);
+        buyBTCWithEuro(ivey, nakamoto, 18.92f);
+
         buyTeslaS(ho, carDealer);
         buyTeslaS(ho, carDealer);
         buyTeslaS(negreanu, carDealer);
@@ -54,14 +59,23 @@ public class Application {
         buyTeslaS(ivey, carDealer);
 
         System.out.println("--------Overview--------");
-        System.out.println("Ho: BTC=" + carDealer.getWallet().getBalance() + ", Teslas=" + carDealer.getTeslasInPossession().size());
-        System.out.println("Ho: BTC=" + ho.getWallet().getBalance() + ", Teslas=" + ho.getTeslasInPossession().size());
-        System.out.println("Ho: BTC=" + negreanu.getWallet().getBalance() + ", Teslas=" + negreanu.getTeslasInPossession().size());
-        System.out.println("Ho: BTC=" + ivey.getWallet().getBalance() + ", Teslas=" + ivey.getTeslasInPossession().size());
+        System.out.println("Ho: BTC=" + carDealer.getWallet().getBalance() + ", Teslas=" + carDealer.getTeslasInPossession().size() + ", EUR=" + carDealer.getEuro());
+        System.out.println("Ho: BTC=" + ho.getWallet().getBalance() + ", Teslas=" + ho.getTeslasInPossession().size() + ", EUR=" + ho.getEuro());
+        System.out.println("Ho: BTC=" + negreanu.getWallet().getBalance() + ", Teslas=" + negreanu.getTeslasInPossession().size() + ", EUR=" + negreanu.getEuro());
+        System.out.println("Ho: BTC=" + ivey.getWallet().getBalance() + ", Teslas=" + ivey.getTeslasInPossession().size() + ", EUR=" + ivey.getEuro());
         System.out.println("--------End--------");
     }
 
     public static void buyTeslaS(Person buyer, Person seller){
         //TODO Implement helper function for buying a tesla.
+        if (!seller.transferTesla(buyer)){
+            System.out.println("Can not transfer a tesla. Payment should be revoked.");
+        }
+    }
+
+    public static void buyBTCWithEuro(Person buyer, Person seller, float bitcoinsToBuy){
+        float priceEUR = (float) (bitcoinsToBuy/ Configuration.instance.EURtoBTC);
+        if (!buyer.sendEuro(seller, priceEUR)) return;
+        //TODO Implement helper function for buying bitcoin
     }
 }
