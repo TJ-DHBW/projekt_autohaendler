@@ -1,5 +1,6 @@
 package application;
 
+import actors.Institution;
 import actors.Person;
 import actors.Miner;
 import actors.Tesla;
@@ -34,6 +35,7 @@ public class Application {
         Person nakamoto = new Person("Satoshi", "Nakamoto");
         Wallet wallet0 = new Wallet();
         nakamoto.setWallet(wallet0);
+        Institution germanChildrensCancerAid = new Institution("German children's cancer aid");
 
         //todo check where transactionInputId comes from
         //Transaction transaction = new Transaction(null, nakamoto.getWallet().getPublicKey(), 100,  );
@@ -48,9 +50,17 @@ public class Application {
         Wallet wallet3 = new Wallet();
         ivey.setWallet(wallet3);
 
+        winnerOfWSOP(ho);
+        winnerOfWSOP(negreanu);
+        winnerOfWSOP(ivey);
+
         buyBTCWithEuro(ho, nakamoto, 18.92f);
         buyBTCWithEuro(negreanu, nakamoto, 18.92f);
         buyBTCWithEuro(ivey, nakamoto, 18.92f);
+
+        nakamoto.donateWalletToInstitution(germanChildrensCancerAid);
+        nakamoto.donateEuroToInstitution(germanChildrensCancerAid, nakamoto.getEuro());
+        nakamoto.liveAContentLifeWithoutBTCAndMuchMoney();
 
         buyTeslaS(ho, carDealer);
         buyTeslaS(ho, carDealer);
@@ -77,5 +87,9 @@ public class Application {
         float priceEUR = (float) (bitcoinsToBuy/ Configuration.instance.EURtoBTC);
         if (!buyer.sendEuro(seller, priceEUR)) return;
         //TODO Implement helper function for buying bitcoin
+    }
+
+    public static void winnerOfWSOP(Person winnerOfTheWSOP){
+        winnerOfTheWSOP.receiveEuro(Configuration.instance.WSOPPriceMoney);
     }
 }
