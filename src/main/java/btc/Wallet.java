@@ -101,4 +101,8 @@ public class Wallet {
     public PublicKey getPublicKey() {
         return this.publicKey;
     }
+
+    public BtcNetwork getAssociatedNetwork() {
+        return associatedNetwork;
+    }
 }

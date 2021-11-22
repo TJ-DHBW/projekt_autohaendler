@@ -15,8 +15,9 @@ public class Miner {
     }
 
     public void mineValidBlock(Block blockToMine, int difficulty) {
-        // TODO Done? Miner needs to add its own reward here
         RewardTransaction rewardTransaction = new RewardTransaction(this.wallet.getPublicKey(), false);
+        rewardTransaction.generateSignature(wallet.getPrivateKey());
+        rewardTransaction.processTransaction();
         blockToMine.addTransaction(rewardTransaction);
         String target = new String(new char[difficulty]).replace('\0', '0');
         while (!blockToMine.getHash().substring(0, difficulty).equals(target)) {

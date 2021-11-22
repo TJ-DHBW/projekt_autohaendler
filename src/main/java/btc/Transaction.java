@@ -47,7 +47,6 @@ public class Transaction {
     public boolean verifySignature() {
         String data = StringUtility.getStringFromKey(sender) + StringUtility.getStringFromKey(recipient) + value;
         return !StringUtility.verifyECDSASig(sender, data, signature);
-
     }
 
     public boolean processTransaction() {
@@ -133,5 +132,9 @@ public class Transaction {
 
     public ArrayList<TransactionOutput> getOutputs() {
         return outputs;
+    }
+
+    public byte[] getSignature() {
+        return signature;
     }
 }

@@ -1,6 +1,7 @@
 package btc;
 
 import config.Configuration;
+import util.StringUtility;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -15,12 +16,17 @@ public class RewardTransaction extends Transaction {
     public boolean processTransaction() {
         id = calculateHash();
         outputs.add(new TransactionOutput(recipient, value, id));
-        outputs.add(new TransactionOutput(sender, 0, id));
 
         for (TransactionOutput o : outputs) {
             Configuration.instance.utx0Map.put(o.getID(), o);
         }
-
         return true;
+    }
+    public boolean verifySignature() {
+        String data = StringUtility.getStringFromKey(sender) + StringUtility.getStringFromKey(recipient) + value;
+        if(signature == null){
+            int i = 0;
+        }
+        return !StringUtility.verifyECDSASig(sender, data, signature);
     }
 }
