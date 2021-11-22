@@ -63,13 +63,13 @@ public class Application {
         buyTeslaSWithBTC(negreanu, carDealer);
         buyTeslaSWithBTC(ivey, carDealer);
 
-        BlockchainSaver.asJson(btcNetwork.getBlockChain(), "blockchain.json");
+        //BlockchainSaver.asJson(btcNetwork.getBlockChain(), "blockchain.json");
 
         System.out.println("--------Overview--------");
-        System.out.println("Ho: BTC=" + carDealer.getWallet().getBalance() + ", Teslas=" + carDealer.getTeslasInPossession().size() + ", EUR=" + carDealer.getEuro());
+        System.out.println("Jimmy: BTC=" + carDealer.getWallet().getBalance() + ", Teslas=" + carDealer.getTeslasInPossession().size() + ", EUR=" + carDealer.getEuro());
         System.out.println("Ho: BTC=" + ho.getWallet().getBalance() + ", Teslas=" + ho.getTeslasInPossession().size() + ", EUR=" + ho.getEuro());
-        System.out.println("Ho: BTC=" + negreanu.getWallet().getBalance() + ", Teslas=" + negreanu.getTeslasInPossession().size() + ", EUR=" + negreanu.getEuro());
-        System.out.println("Ho: BTC=" + ivey.getWallet().getBalance() + ", Teslas=" + ivey.getTeslasInPossession().size() + ", EUR=" + ivey.getEuro());
+        System.out.println("Negreanu: BTC=" + negreanu.getWallet().getBalance() + ", Teslas=" + negreanu.getTeslasInPossession().size() + ", EUR=" + negreanu.getEuro());
+        System.out.println("Ivey: BTC=" + ivey.getWallet().getBalance() + ", Teslas=" + ivey.getTeslasInPossession().size() + ", EUR=" + ivey.getEuro());
         System.out.println("--------End--------");
     }
 
