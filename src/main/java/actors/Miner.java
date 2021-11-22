@@ -1,8 +1,6 @@
 package actors;
 
-import btc.Block;
-import btc.BtcNetwork;
-import btc.Transaction;
+import btc.*;
 import config.Configuration;
 
 import java.util.ArrayList;
@@ -10,13 +8,17 @@ import java.util.ArrayList;
 public class Miner {
     private BtcNetwork activeNetwork;
     private String name;
+    private Wallet wallet;
 
     public Miner(String name) {
         this.name = name;
+        wallet = new Wallet();
     }
 
     public void mineValidBlock(Block blockToMine, int difficulty) {
         // TODO Miner needs to add its own reward here
+        RewardTransaction rewardTransaction = new RewardTransaction(this.wallet.getPublicKey());
+        blockToMine.addTransaction(rewardTransaction);
         String target = new String(new char[difficulty]).replace('\0', '0');
 
         while (!blockToMine.getHash().substring(0, difficulty).equals(target)) {

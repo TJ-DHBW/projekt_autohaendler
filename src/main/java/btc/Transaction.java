@@ -7,13 +7,13 @@ import config.Configuration;
 import util.StringUtility;
 
 public class Transaction {
-    private final PublicKey sender;
-    private final PublicKey recipient;
-    private final float value;
-    private final ArrayList<TransactionOutput> outputs = new ArrayList<>();
-    private final ArrayList<TransactionInput> inputs;
-    private String id = null;
-    private byte[] signature;
+    protected final PublicKey sender;
+    protected final PublicKey recipient;
+    protected final float value;
+    protected final ArrayList<TransactionOutput> outputs = new ArrayList<>();
+    protected final ArrayList<TransactionInput> inputs;
+    protected String id = null;
+    protected byte[] signature;
 
     public Transaction(PublicKey from, PublicKey to, float value, ArrayList<TransactionInput> inputs) {
         this.sender = from;
@@ -22,7 +22,14 @@ public class Transaction {
         this.inputs = inputs;
     }
 
-    private String calculateHash() {
+    protected Transaction(PublicKey from) {
+        this.sender = from;
+        this.recipient = from;
+        this.value = Configuration.instance.miningReward;
+        this.inputs = new ArrayList<>();
+    }
+
+    protected String calculateHash() {
         Configuration.instance.transactionSequence++;
         return StringUtility.applySha256(StringUtility.getStringFromKey(sender) + StringUtility.getStringFromKey(recipient)
                 + value + Configuration.instance.transactionSequence);
