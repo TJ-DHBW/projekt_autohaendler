@@ -45,7 +45,7 @@ public class BtcNetwork {
                 return false;
             }
             loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
-            chosenMiner.mineGenesisBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size());
+            chosenMiner.mineGenesisBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size() * Configuration.instance.difficultyIncreasePerBlock);
         }
         else {
             newBlock = new Block(validBlockChain.get(validBlockChain.size() - 1).getHash());
@@ -55,7 +55,7 @@ public class BtcNetwork {
                 return false;
             }
             loggers.forEach(logger -> logger.onProofOfWork(chosenMiner, newBlock));
-            chosenMiner.mineValidBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size());
+            chosenMiner.mineValidBlock(newBlock, Configuration.instance.difficulty + validBlockChain.size() * Configuration.instance.difficultyIncreasePerBlock);
         }
         loggers.forEach(logger -> logger.onBlockTransmission(newBlock));
         if (!verifyProofOfWork(newBlock)) return false;
