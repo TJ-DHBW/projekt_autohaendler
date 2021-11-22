@@ -1,4 +1,4 @@
-package util.scuffed;
+package util.exportModels;
 
 import btc.Block;
 import btc.Transaction;
@@ -11,6 +11,7 @@ public class Block2 {
     private String hash;
     private int nonce;
     private final ArrayList<Transaction2> transactions;
+    private String merkleRoot;
 
     public Block2(Block block) {
         this.previousHash = block.getPreviousHash();
@@ -21,5 +22,6 @@ public class Block2 {
         for (Transaction tx : block.getTransactions()){
             this.transactions.add(new Transaction2(tx));
         }
+        this.merkleRoot = block.getMerkleRoot();
     }
 }

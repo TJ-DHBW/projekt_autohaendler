@@ -38,7 +38,6 @@ public class LoggerBTC implements ICryptoLogger{
     }
 
     public void onTransaction(Transaction createdTransaction) {
-        // TODO Check if this is accurate
         logger.info("A new Transaction has been created: " + createdTransaction);
     }
 
@@ -50,12 +49,12 @@ public class LoggerBTC implements ICryptoLogger{
         logger.info("Transaction has been verified: " + verifiedTransaction);
     }
 
-    public void onStructuring(Object argument) {
-        // TODO Implement logging
+    public void onStructuring(Transaction addedTransaction, Block newBlock) {
+        logger.info("Transaction "+addedTransaction+" has been added to block "+newBlock);
     }
 
     public void onProofOfWork(Miner chosenMiner, Block blockToMine) {
-        logger.info("The miner " + chosenMiner + " is solving the complex mathematical problem for block: " + blockToMine);
+        logger.info("The miner " + chosenMiner.getName() + " is solving the complex mathematical problem for block: " + blockToMine);
     }
 
     public void onBlockTransmission(Block transmittingBlock) {

@@ -2,7 +2,7 @@ package util;
 
 import btc.Block;
 import com.google.gson.GsonBuilder;
-import util.scuffed.Block2;
+import util.exportModels.Block2;
 
 import java.io.BufferedWriter;
 import java.io.File;

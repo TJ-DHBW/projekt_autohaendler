@@ -8,7 +8,7 @@ public interface ICryptoLogger {
     void onTransaction(Transaction createdTransaction);
     void onBroadcast(Transaction broadcastTransaction);
     void onTransactionVerification(Transaction verifiedTransaction);
-    void onStructuring(Object argument);
+    void onStructuring(Transaction addedTransaction, Block newBlock);
     void onProofOfWork(Miner chosenMiner, Block blockToMine);
     void onBlockTransmission(Block transmittingBlock);
     void onProofOfWorkVerification(Block verifiedBlock);

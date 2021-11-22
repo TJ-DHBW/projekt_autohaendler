@@ -137,4 +137,13 @@ public class Transaction {
     public byte[] getSignature() {
         return signature;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "sender=" + sender.getEncoded() +
+                ", recipient=" + recipient.getEncoded() +
+                ", value=" + value +
+                '}';
+    }
 }

@@ -56,6 +56,7 @@ public class Wallet {
     public boolean sendFunds(PublicKey recipient, float value){
         Transaction transaction = createTransaction(recipient, value);
         if (transaction == null) return false;
+        this.getAssociatedNetwork().getLoggers().forEach(logger -> logger.onTransaction(transaction));
         return this.associatedNetwork.broadcastTransaction(transaction);
     }
 

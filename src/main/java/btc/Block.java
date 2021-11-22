@@ -10,6 +10,8 @@ public class Block {
     private int nonce;
     private final ArrayList<Transaction> transactions;
 
+    private String merkleRoot;
+
     public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
@@ -17,10 +19,10 @@ public class Block {
         this.hash = this.sha256();
         this.transactions = new ArrayList<>();
     }
-    //TODO This class might have to be remade. sha should probably hash over more stuff etc.
 
     public String sha256() {
-        return Hashing.sha256(previousHash + timeStamp + nonce);
+
+        return Hashing.sha256(previousHash + timeStamp + nonce + merkleRoot);
     }
 
     public void incrementNonce() {
@@ -44,15 +46,32 @@ public class Block {
         transactions.add(transactionToAdd);
     }
 
-    public ArrayList<Transaction> getTransactions() {
-        return transactions;
-    }
-
     public long getTimeStamp() {
         return timeStamp;
     }
 
     public int getNonce() {
         return nonce;
+    }
+
+    public void setMerkleRoot(String merkleRoot) {
+        this.merkleRoot = merkleRoot;
+    }
+
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public String getMerkleRoot() {
+        return merkleRoot;
+    }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "previousHash='" + previousHash + '\'' +
+                ", timeStamp=" + timeStamp +
+                ", transactions=" + transactions +
+                '}';
     }
 }
